@@ -12,7 +12,7 @@ skip_tags: true
 max_jobs: 1
 
 #---------------------------------#
-#    environment configuration    #
+#      environment configuration  #
 #---------------------------------#
 
 # Build worker image (VM template)
@@ -21,8 +21,13 @@ image:
 - Visual Studio 2019
 
 #---------------------------------#
-#       build configuration       #
+#      build configuration        #
 #---------------------------------#
+build_script:
+- ps: .\tools\Build-Nuget.ps1
 
-# There is nothing to be build yet
-build: off
+#---------------------------------#
+#      artifacts                  #
+#---------------------------------#
+artifacts:
+- path: .\*.nupkg

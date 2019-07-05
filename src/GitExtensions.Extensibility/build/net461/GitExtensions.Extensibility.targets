@@ -1,0 +1,24 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <!-- It's required to pass absolute paths to the PS1 script, otherwise it's based wrong. -->
+        <_GitExtensionsDownloadPath>$([System.IO.Path]::Combine('$(ProjectDir)', '$(GitExtensionsDownloadPath)'))</_GitExtensionsDownloadPath>
+        <_GitExtensionsDownloadScriptPath>$([System.IO.Path]::Combine('$(MSBuildThisFileDirectory)', '..\..\tools\Download-GitExtensions.ps1'))</_GitExtensionsDownloadScriptPath>
+        <!-- It's required to pass absolute paths as launch profile don't like relative ones. -->
+        <GitExtensionsPath Condition="$(GitExtensionsPath) == ''">$([System.IO.Path]::Combine('$(ProjectDir)', '$(GitExtensionsDownloadPath)\GitExtensions'))</GitExtensionsPath>
+        <GitExtensionsPluginsPath>$(GitExtensionsPath)\Plugins</GitExtensionsPluginsPath>
+        <GitExtensionsExecutablePath>$([System.IO.Path]::Combine('$(GitExtensionsPath)', 'GitExtensions.exe'))</GitExtensionsExecutablePath>
+        <GitExtensionsReferenceSource Condition="$(GitExtensionsReferenceSource) == ''">GitHub</GitExtensionsReferenceSource>
+        <GitExtensionsReferenceVersion Condition="$(GitExtensionsReferenceVersion) == ''">latest</GitExtensionsReferenceVersion>
+    </PropertyGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <MakeDir Directories="$(GitExtensionsPluginsPath)" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GitExtensionsPluginsPath)" />
+    </Target>
+
+    <Target Name="PreBuild" BeforeTargets="$(BuildDependsOn)">
+        <MakeDir Directories="$(_GitExtensionsDownloadPath)" />
+        <Error Condition="!Exists($(GitExtensionsExecutablePath)) and !Exists($(_GitExtensionsDownloadScriptPath))" Text="Path to Git Extensions portable download script is wrong. Current value '$(_GitExtensionsDownloadScriptPath)'." />
+        <Exec Condition="!Exists($(GitExtensionsExecutablePath))" Command="powershell.exe -ExecutionPolicy Unrestricted $(_GitExtensionsDownloadScriptPath) -ExtractRootPath $(_GitExtensionsDownloadPath) -Version $(GitExtensionsReferenceVersion) -Source $(GitExtensionsReferenceSource)" />
+    </Target>
+</Project>
