@@ -4,12 +4,15 @@
     <version>$version$</version>
     <authors>Git Extensions</authors>
     <description>Git Extensions Extensibility package.</description>
+    <projectUrl>https://github.com/gitextensions/gitextensions.extensibility</projectUrl>
+    <license type="file">LICENSE.md</license>
   </metadata>
   <files>
     <file src="lib/net461/_._" target="lib/net461/_._" />
     <file src="build/net461/GitExtensions.Extensibility.props" target="build/net461/GitExtensions.Extensibility.props" />
     <file src="build/net461/GitExtensions.Extensibility.targets" target="build/net461/GitExtensions.Extensibility.targets" />
 
+    <file src="../../LICENSE.md" target="LICENSE.md" />
     <file src="tools/Download-GitExtensions.ps1" target="tools/Download-GitExtensions.ps1" />
   </files>
 </package>
