@@ -9,7 +9,6 @@
   </metadata>
   <files>
     <file src="lib/net461/_._" target="lib/net461/_._" />
-    <file src="build/net461/GitExtensions.Extensibility.props" target="build/net461/GitExtensions.Extensibility.props" />
     <file src="build/net461/GitExtensions.Extensibility.targets" target="build/net461/GitExtensions.Extensibility.targets" />
 
     <file src="../../LICENSE.md" target="LICENSE.md" />
