@@ -3,13 +3,10 @@
 #---------------------------------#
 
 # version format
-version: 0.0.0.{build}
+version: 0.1.1.{build}
 
 # Do not build on tags (GitHub and BitBucket)
 skip_tags: true
-
-# Maximum number of concurrent jobs for the project
-max_jobs: 1
 
 #---------------------------------#
 #      environment configuration  #
@@ -29,4 +26,4 @@ build_script:
 #      artifacts                  #
 #---------------------------------#
 artifacts:
-- path: .\*.nupkg
+- path: .\GitExtensions.Extensibility.*.nupkg
