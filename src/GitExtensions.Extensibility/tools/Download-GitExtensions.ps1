@@ -85,7 +85,7 @@ function Find-ArchiveUrlFromGitHub
     {
         foreach ($Asset in $SelectedRelease.assets)
         {
-            if ($Asset.content_type -eq "application/zip" -and $Asset.name.Contains('Portable'))
+            if ($Asset.name.Contains('Portable') -and $Asset.name.EndsWith('.zip'))
             {
                 Write-Host "Selected asset '$($Asset.name)'.";
                 return $Version,$Asset.browser_download_url;

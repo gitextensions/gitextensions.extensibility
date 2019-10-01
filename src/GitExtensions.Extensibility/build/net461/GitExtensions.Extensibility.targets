@@ -1,24 +1,37 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!-- The following properties may be overwritten by plugins. In case they are not defined, they assume default values. -->
     <PropertyGroup>
-        <!-- It's required to pass absolute paths to the PS1 script, otherwise it's based wrong. -->
-        <_GitExtensionsDownloadPath>$([System.IO.Path]::Combine('$(ProjectDir)', '$(GitExtensionsDownloadPath)'))</_GitExtensionsDownloadPath>
-        <_GitExtensionsDownloadScriptPath>$([System.IO.Path]::Combine('$(MSBuildThisFileDirectory)', '..\..\tools\Download-GitExtensions.ps1'))</_GitExtensionsDownloadScriptPath>
-        <!-- It's required to pass absolute paths as launch profile don't like relative ones. -->
-        <GitExtensionsPath Condition="$(GitExtensionsPath) == ''">$([System.IO.Path]::Combine('$(ProjectDir)', '$(GitExtensionsDownloadPath)\GitExtensions'))</GitExtensionsPath>
-        <GitExtensionsPluginsPath>$(GitExtensionsPath)\Plugins</GitExtensionsPluginsPath>
-        <GitExtensionsExecutablePath>$([System.IO.Path]::Combine('$(GitExtensionsPath)', 'GitExtensions.exe'))</GitExtensionsExecutablePath>
-        <GitExtensionsReferenceSource Condition="$(GitExtensionsReferenceSource) == ''">GitHub</GitExtensionsReferenceSource>
-        <GitExtensionsReferenceVersion Condition="$(GitExtensionsReferenceVersion) == ''">latest</GitExtensionsReferenceVersion>
+        <GitExtensionsDownloadPath Condition="$(GitExtensionsDownloadPath) == ''">..\..\gitextensions.shared</GitExtensionsDownloadPath> <!-- path is relative to $(ProjectDir) -->
+        <GitExtensionsReferenceVersion Condition="$(GitExtensionsReferenceVersion) == ''">latest</GitExtensionsReferenceVersion> <!-- 'latest' or 'v3.1' (= tag from GitHub releases) or 'v3.1.0.5877' (= build number from AppVeyor)-->
+        <GitExtensionsReferenceSource Condition="$(GitExtensionsReferenceSource) == ''">GitHub</GitExtensionsReferenceSource> <!-- 'GitHub' or 'AppYevor' -->
+        <GitExtensionsPath Condition="$(GitExtensionsPath) == ''">$([System.IO.Path]::Combine('$(ProjectDir)', '$(GitExtensionsDownloadPath)', 'GitExtensions'))</GitExtensionsPath> <!-- for local builds (no download) -->
     </PropertyGroup>
 
+    <!-- The following properties are derived from the above ones. All of them necessitate absolute paths. -->
+    <!-- Plugins are supposed to consume them "read-only". -->
+    <PropertyGroup>
+        <_GitExtensionsDownloadPath>$([System.IO.Path]::Combine('$(ProjectDir)', '$(GitExtensionsDownloadPath)'))</_GitExtensionsDownloadPath>
+        <_GitExtensionsDownloadScriptPath>$([System.IO.Path]::Combine('$(MSBuildThisFileDirectory)', '..\..\tools\Download-GitExtensions.ps1'))</_GitExtensionsDownloadScriptPath>
+        <GitExtensionsPluginsPath>$([System.IO.Path]::Combine('$(GitExtensionsPath)', 'UserPlugins'))</GitExtensionsPluginsPath>
+        <GitExtensionsExecutablePath>$([System.IO.Path]::Combine('$(GitExtensionsPath)', 'GitExtensions.exe'))</GitExtensionsExecutablePath>
+    </PropertyGroup>
+
+    <!-- The postbuild event is available in VS projects referencing "GitExtensions.Extensibility". -->
+    <!-- It copies your locally build binaries to $(GitExtensionsPluginsPath)/$(ProjectName) for testing and debugging.-->
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Message Text="Executing postbuild event provided by GitExtensions.Extensibility" />
         <MakeDir Directories="$(GitExtensionsPluginsPath)" />
-        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GitExtensionsPluginsPath)" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$([System.IO.Path]::Combine('$(GitExtensionsPluginsPath)', '$(ProjectName)'))" />
+        <Message Text="Completed postbuild event provided by GitExtensions.Extensibility" />
     </Target>
 
+    <!-- The prebuild event is available in VS projects referencing "GitExtensions.Extensibility". -->
+    <!-- It downloads $(GitExtensionsReferenceVersion) from $(GitExtensionsReferenceSource) and extracts it to $(GitExtensionsPath) -->
     <Target Name="PreBuild" BeforeTargets="$(BuildDependsOn)">
+        <Message Text="Executing prebuild event provided by GitExtensions.Extensibility" />
         <MakeDir Directories="$(_GitExtensionsDownloadPath)" />
         <Error Condition="!Exists($(GitExtensionsExecutablePath)) and !Exists($(_GitExtensionsDownloadScriptPath))" Text="Path to Git Extensions portable download script is wrong. Current value '$(_GitExtensionsDownloadScriptPath)'." />
         <Exec Condition="!Exists($(GitExtensionsExecutablePath))" Command="powershell.exe -ExecutionPolicy Unrestricted $(_GitExtensionsDownloadScriptPath) -ExtractRootPath $(_GitExtensionsDownloadPath) -Version $(GitExtensionsReferenceVersion) -Source $(GitExtensionsReferenceSource)" />
+        <Message Text="Completed prebuild event provided by GitExtensions.Extensibility" />
     </Target>
 </Project>
