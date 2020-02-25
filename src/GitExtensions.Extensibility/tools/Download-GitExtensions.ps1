@@ -85,7 +85,7 @@ function Find-ArchiveUrlFromGitHub
     {
         foreach ($Asset in $SelectedRelease.assets)
         {
-            if ($Asset.name.Contains('Portable') -and $Asset.name.EndsWith('.zip'))
+            if ($Asset.name.ToLower().Contains('portable') -and $Asset.name.ToLower().EndsWith('.zip'))
             {
                 Write-Host "Selected asset '$($Asset.name)'.";
                 return $Version,$Asset.browser_download_url;
@@ -134,7 +134,7 @@ function Find-ArchiveUrlFromAppVeyor
             $Assets = Invoke-RestMethod -Method Get -Uri $AssetsUrl;
             foreach ($Asset in $Assets)
             {
-                if ($Asset.type -eq "zip" -and $Asset.FileName.Contains('Portable')) 
+                if ($Asset.type.ToLower() -eq "zip" -and $Asset.FileName.ToLower().Contains('portable')) 
                 {
                     Write-Host "Selected asset '$($Asset.FileName)'.";
                     return $Version,($AssetsUrl + "/" + $Asset.FileName);
