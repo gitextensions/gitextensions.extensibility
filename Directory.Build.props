@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <TargetFramework>net461</TargetFramework>
+        <NoWarn>$(NoWarn),1573,1591,1696,1712</NoWarn>
+
+        <!-- TODO once all project migrated to SDK-style, remove this and move properties to Directory.Build.props -->
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="System.Windows.Forms" />
+    </ItemGroup>
+</Project>
