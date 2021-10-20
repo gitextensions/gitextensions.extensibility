@@ -161,7 +161,10 @@ function Get-Application
         [Parameter(Mandatory=$true, Position=1)]
         [string] $ExtractPath,
         [Parameter(Mandatory=$true, Position=2)]
-        [string] $FileName
+        [string] $FileName,
+        [Parameter(Mandatory=$true, Position=3)]
+        [ValidateSet('GitHub','AppVeyor', ignorecase=$False)]
+        [string] $Source
     )
     
     if (!(Test-Path $ExtractPath))
@@ -170,6 +173,11 @@ function Get-Application
     }
 
     $FilePath = [System.IO.Path]::Combine($ExtractPath, $FileName);
+
+    if ($Source -eq "AppVeyor") 
+    {
+        $ExtractPath = [System.IO.Path]::Combine($ExtractPath, "GitExtensions");
+    }
 
     Write-Host "Downloading '$ArchiveUrl'...";
 
@@ -216,7 +224,7 @@ try
         }
     }
 
-    Get-Application -ArchiveUrl $DownloadUrl -ExtractPath $ExtractRootPath -FileName $FileName;
+    Get-Application -ArchiveUrl $DownloadUrl -ExtractPath $ExtractRootPath -FileName $FileName -Source $Source;
 }
 catch 
 {
