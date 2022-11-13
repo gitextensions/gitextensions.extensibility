@@ -3,7 +3,7 @@
 #---------------------------------#
 
 # version format
-version: 0.2.0.{build}
+version: 0.3.0.{build}
 
 #---------------------------------#
 #      environment configuration  #
@@ -34,7 +34,7 @@ deploy:
   name: production
   artifact: /GitExtensions.Extensibility.*\.nupkg/
   api_key:
-    secure: DvVb/qMGNgD0/vGhMyz4V8o/m98loHN/tr+bKGGxaizrn54gKoRyHOwsYTShtmX6
+    secure: 6SPyC/5vMA5V8913OH9JXjHSvdXHQEzLN17uF6q/cSI3l930rsDctRx+8VRFRhV6
   skip_symbols: false
   on:
     branch: master
