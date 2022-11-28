@@ -4,7 +4,7 @@
         <GitExtensionsDownloadPath Condition="$(GitExtensionsDownloadPath) == ''">..\..\gitextensions.shared</GitExtensionsDownloadPath> <!-- path is relative to $(ProjectDir) -->
         <GitExtensionsReferenceVersion Condition="$(GitExtensionsReferenceVersion) == ''">latest</GitExtensionsReferenceVersion> <!-- 'latest' or 'v3.1' (= tag from GitHub releases) or 'v3.1.0.5877' (= build number from AppVeyor)-->
         <GitExtensionsReferenceSource Condition="$(GitExtensionsReferenceSource) == ''">GitHub</GitExtensionsReferenceSource> <!-- 'GitHub' or 'AppYevor' -->
-        <GitExtensionsPath Condition="$(GitExtensionsPath) == ''">$([System.IO.Path]::Combine('$(ProjectDir)', '$(GitExtensionsDownloadPath)', 'GitExtensions'))</GitExtensionsPath> <!-- for local builds (no download) -->
+        <GitExtensionsPath Condition="$(GitExtensionsPath) == ''">$([System.IO.Path]::Combine('$(ProjectDir)', '$(GitExtensionsDownloadPath)'))</GitExtensionsPath> <!-- for local builds (no download) -->
     </PropertyGroup>
 
     <!-- The following properties are derived from the above ones. All of them necessitate absolute paths. -->
