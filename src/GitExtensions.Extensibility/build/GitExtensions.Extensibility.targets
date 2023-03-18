@@ -31,7 +31,7 @@
         <Message Text="Executing prebuild event provided by GitExtensions.Extensibility" />
         <MakeDir Directories="$(_GitExtensionsDownloadPath)" />
         <Error Condition="!Exists($(GitExtensionsExecutablePath)) and !Exists($(_GitExtensionsDownloadScriptPath))" Text="Path to Git Extensions portable download script is wrong. Current value '$(_GitExtensionsDownloadScriptPath)'." />
-        <Exec Condition="!Exists($(GitExtensionsExecutablePath))" Command="powershell.exe -ExecutionPolicy Unrestricted $(_GitExtensionsDownloadScriptPath) -ExtractRootPath $(_GitExtensionsDownloadPath) -Version $(GitExtensionsReferenceVersion) -Source $(GitExtensionsReferenceSource)" />
+        <Exec Condition="!Exists($(GitExtensionsExecutablePath))" Command="powershell.exe -NoProfile -ExecutionPolicy Unrestricted $(_GitExtensionsDownloadScriptPath) -ExtractRootPath $(_GitExtensionsDownloadPath) -Version $(GitExtensionsReferenceVersion) -Source $(GitExtensionsReferenceSource)" />
         <Message Text="Completed prebuild event provided by GitExtensions.Extensibility" />
     </Target>
 </Project>
