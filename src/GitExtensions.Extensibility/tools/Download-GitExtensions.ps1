@@ -174,11 +174,6 @@ function Get-Application
 
     $FilePath = [System.IO.Path]::Combine($ExtractPath, $FileName);
 
-    if ($Source -eq "AppVeyor") 
-    {
-        $ExtractPath = [System.IO.Path]::Combine($ExtractPath, "GitExtensions");
-    }
-
     Write-Host "Downloading '$ArchiveUrl'...";
 
     Invoke-WebRequest -Uri $ArchiveUrl -OutFile $FilePath;
