@@ -7,4 +7,8 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AdysTech.CredentialManager" />
+  </ItemGroup>
+
 </Project>

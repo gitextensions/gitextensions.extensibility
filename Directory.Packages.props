@@ -2,6 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <!-- Solution dependencies -->
+    <PackageVersion Include="AdysTech.CredentialManager" Version="2.3.0" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading" Version="17.4.27" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" />
