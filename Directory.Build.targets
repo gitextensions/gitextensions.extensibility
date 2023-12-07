@@ -1,5 +1,6 @@
 <Project>
   <Import Project="eng\Tests.targets" />
+  <Import Project="eng\Packaging.targets" Condition=" '$(IsPackable)' == 'true' " />
 
   <ItemGroup Condition="'$(EnableStyleCopAnalyzers)' != 'false'">
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="all" />
