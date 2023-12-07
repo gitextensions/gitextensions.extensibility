@@ -1,0 +1,16 @@
+<Project>
+  <Import Project="eng\Tests.targets" />
+
+  <ItemGroup Condition="'$(EnableStyleCopAnalyzers)' != 'false'">
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(EnableVisualStudioThreading)' != 'false'">
+    <PackageReference Include="Microsoft.VisualStudio.Threading" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>
