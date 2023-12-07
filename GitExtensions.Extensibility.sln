@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34321.82
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitExtensions.Extensibility", "src\GitExtensions.Extensibility\GitExtensions.Extensibility.csproj", "{B75368EA-3C47-4916-BA2E-92EF976BED9F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitExtensions.Extensibility.Tests", "tests\GitExtensions.Extensibility.Tests\GitExtensions.Extensibility.Tests.csproj", "{4A4F8091-3847-43EE-A8DE-500D41DF08BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{393BBB52-AAB0-48CD-B939-6EF21266C333}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		Directory.Packages.props = Directory.Packages.props
+		GitExtensions.ruleset = GitExtensions.ruleset
+		GitExtensionsTest.ruleset = GitExtensionsTest.ruleset
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B75368EA-3C47-4916-BA2E-92EF976BED9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B75368EA-3C47-4916-BA2E-92EF976BED9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B75368EA-3C47-4916-BA2E-92EF976BED9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B75368EA-3C47-4916-BA2E-92EF976BED9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A4F8091-3847-43EE-A8DE-500D41DF08BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A4F8091-3847-43EE-A8DE-500D41DF08BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A4F8091-3847-43EE-A8DE-500D41DF08BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A4F8091-3847-43EE-A8DE-500D41DF08BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {39E4BE2E-815C-4946-91E7-B24A85F6FEDA}
+	EndGlobalSection
+EndGlobal

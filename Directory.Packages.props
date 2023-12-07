@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <!-- Solution dependencies -->
+    <PackageVersion Include="AdysTech.CredentialManager" Version="2.3.0" />
+    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1" />
+    <PackageVersion Include="Microsoft.VisualStudio.Threading" Version="17.4.27" />
+    <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" />
+
+    <!-- Test infra -->
+    <PackageVersion Include="Appveyor.TestLogger" Version="2.0.0" />
+    <PackageVersion Include="FluentAssertions" Version="5.10.3" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageVersion Include="NSubstitute" Version="4.2.1" />
+    <PackageVersion Include="NUnit.ConsoleRunner" Version="3.16.3" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageVersion Include="NUnit" Version="3.13.3" />
+
+  </ItemGroup>
+</Project>
