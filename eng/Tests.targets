@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <PropertyGroup Condition="'$(IsTestProject)' == 'true'">
+    <_TestResultsDir>$([MSBuild]::NormalizeDirectory('$(ArtifactsDir)', 'TestsResults'))</_TestResultsDir>
+    <VSTestLogger>trx</VSTestLogger>
+    <VSTestResultsDirectory>$(_TestResultsDir)</VSTestResultsDirectory>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsTestProject)' == 'true' and '$(TestArchitectures)' == ''">
+    <TestArchitectures>$(PlatformTarget)</TestArchitectures>
+    <TestArchitectures Condition="'$(PlatformTarget)' == '' or '$(PlatformTarget)' == 'AnyCpu'">x64</TestArchitectures>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(IsTestProject)' == 'true'">
+    <!-- VS TestExplorer uses this to identify a test project -->
+    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
+
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+
+    <PackageReference Include="FluentAssertions" PrivateAssets="all" Publish="true" />
+    <PackageReference Include="NSubstitute" PrivateAssets="all" Publish="true" />
+    <PackageReference Include="NUnit" PrivateAssets="all" Publish="true" />
+    <PackageReference Include="NUnit3TestAdapter" PrivateAssets="all" Publish="true" />
+    <PackageReference Include="Appveyor.TestLogger" PrivateAssets="all" Publish="true" />
+
+    <PackageReference Include="NUnit.ConsoleRunner" PrivateAssets="all" Publish="true" />
+  </ItemGroup>
+
+</Project>

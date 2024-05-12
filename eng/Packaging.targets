@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <PropertyGroup>
+    <PackageOutputPath>$(ArtifactsPublishDir)</PackageOutputPath>
+
+    <Company>Git Extensions</Company>
+    <Product>Git Extensions</Product>
+    <Copyright>Copyright © 2008-2023 Git Extensions Team</Copyright>
+    <Description>Git Extensions API contracts and shared helpers</Description>
+
+    <PackageProjectUrl>https://github.com/gitextensions/gitextensions/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/gitextensions/gitextensions.extensibility/</RepositoryUrl>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(RepoRoot)/LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+
+</Project>
