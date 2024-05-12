@@ -186,13 +186,15 @@ public interface IGitModule
     /// </exception>
     T? GetEffectiveSetting<T>(string setting) where T : struct;
 
+    string? GetGitSetting(string setting, string scopeArg, bool cache = false);
+
     /// <summary>
     /// Get the effective config setting from git.
     /// </summary>
     /// <param name="setting">The setting key.</param>
     /// <param name="cache"><see langword="true"/> if the result shall be cached.</param>
     /// <returns>The value of the setting or <see langword="null"/> if the value is not set.</returns>
-    string? GetEffectiveGitSetting(string setting, bool cache = true);
+    string? GetEffectiveGitSetting(string setting, bool cache = false);
 
     SettingsSource GetEffectiveSettingsByPath(string path);
 
@@ -226,6 +228,17 @@ public interface IGitModule
     Task<Patch?> GetCurrentChangesAsync(string? fileName, string? oldFileName, bool staged, string extraDiffArguments, Encoding? encoding = null, bool noLocks = false);
     Task<string?> GetFileContentsAsync(GitItemStatus file);
     IReadOnlyList<GitStash> GetStashes(bool noLocks);
+    Task<ExecutionResult> GetSingleDifftoolAsync(
+        ObjectId? firstId,
+        ObjectId? secondId,
+        string? fileName,
+        string? oldFileName,
+        ArgumentString extraDiffArguments,
+        bool cacheResult,
+        bool isTracked,
+        bool useGitColoring,
+        CancellationToken cancellationToken);
+
     IReadOnlyList<GitItemStatus> GetWorkTreeFiles();
     SubmoduleStatus CheckSubmoduleStatus(ObjectId? commit, ObjectId? oldCommit, CommitData? data, CommitData? oldData, bool loadData);
     bool ResetAllChanges(bool clean, bool onlyWorkTree = false);
@@ -261,6 +274,16 @@ public interface IGitModule
     string? GetCurrentSubmoduleLocalPath();
     ISubmodulesConfigFile GetSubmodulesConfigFile();
     string GetStatusText(bool untracked);
+    IReadOnlyList<GitItemStatus> GetGrepFilesStatus(ObjectId objectId, string grepString, CancellationToken cancellationToken);
+    Task<ExecutionResult> GetGrepFileAsync(
+        ObjectId objectId,
+        string fileName,
+        ArgumentString extraArgs,
+        string grepString,
+        bool useGitColoring,
+        IGitCommandConfiguration commandConfiguration,
+        CancellationToken cancellationToken);
+
     ExecutionResult GetDiffFiles(string? firstRevision, string? secondRevision, bool noCache, bool nullSeparated, CancellationToken cancellationToken);
     bool InTheMiddleOfBisect();
     IReadOnlyList<GitItemStatus> GetDiffFilesWithUntracked(string? firstRevision, string? secondRevision, StagedStatus stagedStatus, bool noCache, CancellationToken cancellationToken);
