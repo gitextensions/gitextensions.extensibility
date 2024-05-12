@@ -1,4 +1,4 @@
-﻿namespace GitExtUtils;
+﻿namespace GitExtensions.Extensibility.Git;
 
 public interface IGitCommandConfiguration
 {

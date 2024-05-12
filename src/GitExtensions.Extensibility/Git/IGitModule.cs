@@ -2,7 +2,6 @@
 using System.Text;
 using GitExtensions.Extensibility.Configurations;
 using GitExtensions.Extensibility.Settings;
-using GitExtUtils;
 using GitUIPluginInterfaces;
 
 namespace GitExtensions.Extensibility.Git;
