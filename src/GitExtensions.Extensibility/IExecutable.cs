@@ -8,6 +8,9 @@ namespace GitExtensions.Extensibility;
 /// </summary>
 public interface IExecutable
 {
+    public string WorkingDir { get; }
+    public string Command { get; }
+
     /// <summary>
     /// Starts a process of this executable.
     /// </summary>

@@ -2,6 +2,7 @@
 using System.Text;
 using GitExtensions.Extensibility.Configurations;
 using GitExtensions.Extensibility.Settings;
+using GitExtUtils;
 using GitUIPluginInterfaces;
 
 namespace GitExtensions.Extensibility.Git;
@@ -216,7 +217,7 @@ public interface IGitModule
 
     string ReEncodeCommitMessage(string s);
 
-    string? GetDescribe(ObjectId commitId);
+    string? GetDescribe(ObjectId commitId, CancellationToken cancellationToken);
 
     (int TotalCount, Dictionary<string, int> CountByName) GetCommitsByContributor(DateTime? since = null, DateTime? until = null);
 
@@ -236,7 +237,18 @@ public interface IGitModule
     /// <param name="isDiff">diff or merge.</param>
     /// <returns>the Git output.</returns>
     string GetCustomDiffMergeTools(bool isDiff, CancellationToken cancellationToken);
-    Task<(Patch? Patch, string? ErrorMessage)> GetSingleDiffAsync(ObjectId? firstId, ObjectId? secondId, string? fileName, string? oldFileName, string extraDiffArguments, Encoding encoding, bool cacheResult, bool isTracked);
+    Task<(Patch? Patch, string? ErrorMessage)> GetSingleDiffAsync(
+            ObjectId? firstId,
+            ObjectId? secondId,
+            string? fileName,
+            string? oldFileName,
+            string extraDiffArguments,
+            Encoding encoding,
+            bool cacheResult,
+            bool isTracked,
+            bool useGitColoring,
+            IGitCommandConfiguration commandConfiguration,
+            CancellationToken cancellationToken);
     int? GetCommitCount(string parent, string child, bool cache, bool throwOnErrorExit);
 
     /// <summary>
@@ -253,7 +265,16 @@ public interface IGitModule
     bool InTheMiddleOfBisect();
     IReadOnlyList<GitItemStatus> GetDiffFilesWithUntracked(string? firstRevision, string? secondRevision, StagedStatus stagedStatus, bool noCache, CancellationToken cancellationToken);
     bool IsDirtyDir();
-    Task<string> GetRangeDiffAsync(ObjectId firstId, ObjectId secondId, ObjectId? firstBase, ObjectId? secondBase, string extraDiffArguments, string? pathFilter, CancellationToken cancellationToken);
+    Task<ExecutionResult> GetRangeDiffAsync(
+        ObjectId firstId,
+        ObjectId secondId,
+        ObjectId? firstBase,
+        ObjectId? secondBase,
+        string extraDiffArguments,
+        string? pathFilter,
+        bool useGitColoring,
+        IGitCommandConfiguration commandConfiguration,
+        CancellationToken cancellationToken);
     bool InTheMiddleOfPatch();
     bool InTheMiddleOfConflictedMerge(bool throwOnErrorExit = true);
     bool InTheMiddleOfAction();
@@ -284,7 +305,7 @@ public interface IGitModule
     /// <param name="objectId">The sha1.</param>
     /// <param name="getLocal">Pass true to include local branches.</param>
     /// <param name="getRemote">Pass true to include remote branches.</param>
-    IReadOnlyList<string> GetAllBranchesWhichContainGivenCommit(ObjectId objectId, bool getLocal, bool getRemote);
+    IReadOnlyList<string> GetAllBranchesWhichContainGivenCommit(ObjectId objectId, bool getLocal, bool getRemote, CancellationToken cancellationToken);
 
     /// <summary>
     /// Uses check-ref-format to ensure that a branch name is well formed.
@@ -293,7 +314,7 @@ public interface IGitModule
     /// <returns>true if <paramref name="branchName"/> is valid reference name, otherwise false.</returns>
     bool CheckBranchFormat(string branchName);
     string? GetLocalTrackingBranchName(string remoteName, string branch);
-    string GetCommitCountString(string from, string to);
+    string GetCommitCountString(ObjectId fromId, string to);
     IReadOnlyList<GitItemStatus> GetAllChangedFilesWithSubmodulesStatus(CancellationToken cancellationToken);
     IReadOnlyList<GitItemStatus> GetAllChangedFilesWithSubmodulesStatus(bool excludeIgnoredFiles, bool excludeAssumeUnchangedFiles, bool excludeSkipWorktreeFiles, UntrackedFilesMode untrackedFiles, CancellationToken cancellationToken);
     bool ResetChanges(ObjectId? resetId, IReadOnlyList<GitItemStatus> selectedItems, bool resetAndDelete, IFullPathResolver fullPathResolver, out StringBuilder output, Action<BatchProgressEventArgs>? progressAction);
@@ -309,7 +330,7 @@ public interface IGitModule
     /// Returns tag's message. If the lightweight tag is passed, corresponding commit message
     /// is returned.
     /// </summary>
-    string? GetTagMessage(string? tag);
+    string? GetTagMessage(string? tag, CancellationToken cancellationToken);
     void UnstageFile(string file);
     bool UnstageFiles(IReadOnlyList<GitItemStatus> files, out string allOutput);
     bool StageFile(string file);
@@ -393,7 +414,14 @@ public interface IGitModule
     /// </summary>
     IGitVersion GitVersion { get; }
 
-    string? GetCombinedDiffContent(ObjectId revisionOfMergeCommit, string filePath, string extraArgs, Encoding encoding);
+    bool GetCombinedDiffContent(ObjectId revisionOfMergeCommit,
+            string filePath,
+            string extraArgs,
+            Encoding encoding,
+            out string diffOfConflict,
+            bool useGitColoring,
+            IGitCommandConfiguration commandConfiguration,
+            CancellationToken cancellationToken);
     bool IsMerge(ObjectId objectId);
     IEnumerable<string> GetMergedBranches(bool includeRemote = false);
     Task<string[]> GetMergedBranchesAsync(bool includeRemote = false, bool fullRefname = false, string? commit = null);
