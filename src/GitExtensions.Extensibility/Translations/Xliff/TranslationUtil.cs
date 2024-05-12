@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using GitExtensions.Extensibility.Translations;
 
 namespace GitExtensions.Extensibility.Translations.Xliff;
 

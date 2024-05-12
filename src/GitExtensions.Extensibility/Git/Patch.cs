@@ -12,8 +12,6 @@ public sealed class Patch
 
     public string? FileNameB { get; }
 
-    public bool IsCombinedDiff { get; }
-
     public PatchChangeType ChangeType { get; }
 
     public string? Text { get; }
@@ -24,7 +22,6 @@ public sealed class Patch
         PatchFileType fileType,
         string fileNameA,
         string? fileNameB,
-        bool isCombinedDiff,
         PatchChangeType changeType,
         string? text)
     {
@@ -36,7 +33,6 @@ public sealed class Patch
         FileType = fileType;
         FileNameA = fileNameA;
         FileNameB = fileNameB;
-        IsCombinedDiff = isCombinedDiff;
         ChangeType = changeType;
         Text = text;
     }

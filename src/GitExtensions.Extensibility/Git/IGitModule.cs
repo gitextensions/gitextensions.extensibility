@@ -414,7 +414,8 @@ public interface IGitModule
     /// </summary>
     IGitVersion GitVersion { get; }
 
-    bool GetCombinedDiffContent(ObjectId revisionOfMergeCommit,
+    bool GetCombinedDiffContent(
+            ObjectId revisionOfMergeCommit,
             string filePath,
             string extraArgs,
             Encoding encoding,
@@ -424,7 +425,7 @@ public interface IGitModule
             CancellationToken cancellationToken);
     bool IsMerge(ObjectId objectId);
     IEnumerable<string> GetMergedBranches(bool includeRemote = false);
-    Task<string[]> GetMergedBranchesAsync(bool includeRemote = false, bool fullRefname = false, string? commit = null);
+    Task<string[]> GetMergedBranchesAsync(bool includeRemote, bool fullRefname, string? commit, CancellationToken cancellationToken);
     IReadOnlyList<string> GetMergedRemoteBranches();
     IReadOnlyList<IGitRef> GetRemoteServerRefs(string remote, bool tags, bool branches, out string? errorOutput, CancellationToken cancellationToken);
 
@@ -452,7 +453,7 @@ public interface IGitModule
     /// Gets all tags which contain the given commit.
     /// </summary>
     /// <param name="objectId">The sha1.</param>
-    IReadOnlyList<string> GetAllTagsWhichContainGivenCommit(ObjectId objectId);
+    IReadOnlyList<string> GetAllTagsWhichContainGivenCommit(ObjectId objectId, CancellationToken cancellationToken);
 
     /// <summary>
     ///  Gets the remote branch.

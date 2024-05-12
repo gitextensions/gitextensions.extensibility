@@ -1,5 +1,4 @@
 ﻿using System.Xml.Serialization;
-using GitExtensions.Extensibility.Translations;
 
 namespace GitExtensions.Extensibility.Translations.Xliff;
 
