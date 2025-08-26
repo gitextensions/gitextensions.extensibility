@@ -34,7 +34,7 @@ deploy:
   name: production
   artifact: /GitExtensions.Extensibility.*\.nupkg/
   api_key:
-    secure: CPovigLbxQefj/C4xgOWGn2yWcEw88J5mZ2dPSN60nmU8IDINhSkS6fi+F/WCu1R
+    secure: BDjV6QQm6qYndm614ZIy5cvcTpXK+EDBhoqVtMXScpKiNS+sEET8Frs+Qp60COnu
   skip_symbols: false
   on:
     branch: master
