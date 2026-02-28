@@ -6,12 +6,14 @@
     <description>Git Extensions Extensibility package.</description>
     <projectUrl>https://github.com/gitextensions/gitextensions.extensibility</projectUrl>
     <license type="file">LICENSE.md</license>
+    <readme>README.md</readme>
   </metadata>
   <files>
     <file src="build/GitExtensions.Extensibility.targets" target="build/net10.0/GitExtensions.Extensibility.targets" />
-
+    <!-- stub to restrict package compatibility to net10.0 only -->
+    <file src="lib/net10.0/_._" target="lib/net10.0/_._" />
     <file src="../../LICENSE.md" target="LICENSE.md" />
     <file src="../../README.md" target="README.md" />
-    <file src="tools/Download-GitExtensions.ps1" target="tools/init.ps1" />
+    <file src="tools/Download-GitExtensions.ps1" target="tools/Download-GitExtensions.ps1" />
   </files>
 </package>
