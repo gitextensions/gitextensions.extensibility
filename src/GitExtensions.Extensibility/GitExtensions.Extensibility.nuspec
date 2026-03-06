@@ -6,12 +6,18 @@
     <description>Git Extensions Extensibility package.</description>
     <projectUrl>https://github.com/gitextensions/gitextensions.extensibility</projectUrl>
     <license type="file">LICENSE.md</license>
+    <readme>README.md</readme>
+    <dependencies>
+      <group targetFramework="net10.0" />
+    </dependencies>
   </metadata>
   <files>
-    <file src="build/GitExtensions.Extensibility.targets" target="build/net461/GitExtensions.Extensibility.targets" />
-    <file src="build/GitExtensions.Extensibility.targets" target="build/net5.0/GitExtensions.Extensibility.targets" />
-
+    <file src="build/GitExtensions.Extensibility.targets" target="build/net10.0/GitExtensions.Extensibility.targets" />
+    <!-- stub to restrict package compatibility to net10.0 only -->
+    <file src="lib/net10.0/_._" target="lib/net10.0/_._" />
     <file src="../../LICENSE.md" target="LICENSE.md" />
+    <file src="../../README.md" target="README.md" />
+    <!-- Note: NU5111 warning about Download-GitExtensions.ps1 can be safely ignored. -->
     <file src="tools/Download-GitExtensions.ps1" target="tools/Download-GitExtensions.ps1" />
   </files>
 </package>
